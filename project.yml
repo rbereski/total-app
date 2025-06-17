@@ -1,0 +1,73 @@
+name: Total
+options:
+  bundleIdPrefix: your.identifier
+settings:
+  ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: YES
+  ENABLE_USER_SCRIPT_SANDBOXING: YES
+targets:
+  Total:
+    type: application
+    platform: iOS
+    deploymentTarget: "18.0"
+    sources: [TotalApp]
+    dependencies:
+      - package: SwiftSoup
+      - package: AlertToast
+      - package: ActivityIndicatorView
+    settings:
+      base:
+        # DEVELOPMENT_TEAM: 1234567890
+        SWIFT_VERSION: 5.0
+        SWIFT_EMIT_LOC_STRINGS: YES # Use Compiler to extract Swift strings
+        ENABLE_PREVIEWS: YES
+        TARGETED_DEVICE_FAMILY: "1" # "1,2"
+        MARKETING_VERSION: 1.0
+        CURRENT_PROJECT_VERSION: 1
+        ASSETCATALOG_COMPILER_APPICON_NAME: "AppIcon"
+        # ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: "AccentColor"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait"
+  UnitTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [UnitTests]
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Total.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Total"
+  UITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [UITests]
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: "Total"
+
+schemes:
+  Total:
+    run:
+      environmentVariables:
+        OS_ACTIVITY_MODE: disable
+    build:
+      targets:
+        Total: all
+    test:
+      targets:
+        - UnitTests
+        - UITests
+
+packages:
+  SwiftSoup:
+    url: https://github.com/scinfu/SwiftSoup
+    from: 2.8.7
+  AlertToast:
+    url: https://github.com/elai950/AlertToast
+    branch: 1.3.9
+  ActivityIndicatorView:
+    url: https://github.com/exyte/ActivityIndicatorView
+    from: 1.2.1
