@@ -94,7 +94,7 @@ public class SnapshotGenerator {
         }
     }
     
-    private func calculateValue( _ asset: Asset, configuredProviders: inout Set<PriceDataProviderID>) async throws(SnapshotError) -> ValueInfo {
+    private func calculateValue(_ asset: Asset, configuredProviders: inout Set<PriceDataProviderID>) async throws(SnapshotError) -> ValueInfo {
         switch asset.type {
             case .cash:
                 return ValueInfo(unitPrice: 1, totalPrice: asset.amount, currency: asset.currency)
@@ -109,7 +109,7 @@ public class SnapshotGenerator {
         }
         
         if (providerId == .fixedPrice) {
-            return ValueInfo(unitPrice: asset.fixedPrice, totalPrice: asset.fixedPrice * asset.amount,  currency: asset.currency)
+            return ValueInfo(unitPrice: asset.fixedPrice, totalPrice: asset.fixedPrice * asset.amount, currency: asset.currency)
         }
         
         guard let symbol = asset.priceProviderSymbol, !symbol.isEmpty else { throw .missingSymbol(assetName: asset.name) }
@@ -121,7 +121,7 @@ public class SnapshotGenerator {
                 configuredProviders.insert(providerId)
             }
             let price = try await provider.fetchPrice(symbol: symbol)
-            return ValueInfo(unitPrice: price.price,  totalPrice: price.price * asset.amount, currency: price.currency)
+            return ValueInfo(unitPrice: price.price, totalPrice: price.price * asset.amount, currency: price.currency)
         } catch let e {
             throw .priceDataProviderError(e)
         }

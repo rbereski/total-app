@@ -28,7 +28,7 @@ public class NumberFormattersCache {
     public lazy var editorDecimalFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
-        formatter.decimalSeparator = decimalSeparator
+        formatter.decimalSeparator = Locale.current.decimalSeparator
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = 10
         formatter.groupingSize = 0
