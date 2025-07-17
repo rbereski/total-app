@@ -121,7 +121,7 @@ public class SnapshotGenerator {
                 configuredProviders.insert(providerId)
             }
             let price = try await provider.fetchPrice(symbol: symbol)
-            return ValueInfo(unitPrice: price.price,  totalPrice: price.price * asset.amount, currency: asset.currency)
+            return ValueInfo(unitPrice: price.price,  totalPrice: price.price * asset.amount, currency: price.currency)
         } catch let e {
             throw .priceDataProviderError(e)
         }
